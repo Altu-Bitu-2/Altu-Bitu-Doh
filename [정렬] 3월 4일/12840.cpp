@@ -1,38 +1,32 @@
 #include <iostream>
-#include <algorithm>
 using namespace std;
+int n;
+long long t;
+long long se;
+int h, m, s;
 int main(void) {
-	int n;
-	int t;
-	int se;
-	int h, m, s;
-	cin >> h >> m >> s;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	cin >> h >> m >> s >> n;
 	t = 3600 * h + 60 * m + s; //시간을 초로 변환
-	cin >> n;
 	for (int i = 0; i < n; i++) {
 		int ch;
 		cin >> ch;
-		switch (ch) {
-		case 1: {
+		if (ch == 1) {
 			cin >> se;
 			t += se;
-			t %= 86400;//시간이 24시간을 넘겼을 경우 나머지만 남기고 버림.
-			break;
 		}
-		case 2: {
+		else if (ch == 2) {
 			cin >> se;
 			t -= se;
-			t %= 86400;
-			break;
 		}
-		case 3: {
-			while (t < 0) {//시간이 음수인경우 하루를 더해줌
+		else if (ch == 3) {
+			while (t < 0) {
 				t += 86400;
 			}
-			cout << t / 3600 << ' ' << (t % 3600) / 60 << ' ' << t % 60 << '\n';
-			break;
-		}
-
+			t %= 86400;//시간이 24시간을 넘겼을 경우 나머지만 남기고 버림.
+			cout << t / 3600 << ' ' << (t / 60) % 60 << ' ' << t % 60 << '\n';
 		}
 	}
 }

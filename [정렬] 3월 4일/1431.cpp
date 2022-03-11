@@ -10,8 +10,8 @@ int cmp(const string& A, const string& B ) {
 
     int A_sum = 0, B_sum = 0;
     for (int i= 0; i < A_size; i++) {
-        if ('0' <= A[i] && A[i] <= '9')    A_sum += A[i] - '0';
-        if ('0' <= B[i] && B[i] <= '9')    B_sum += B[i] - '0';
+        if (isdigit(A[i]))   A_sum += A[i] - '0'; //숫자인지 판별하는 isdigit(char)을 사용하여 숫자일 경우 결과에 숫자 그대로 더해줌
+        if (isdigit(B[i]))   B_sum += B[i] - '0';
     }
     if (A_sum != B_sum) return A_sum < B_sum;
 

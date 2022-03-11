@@ -11,7 +11,7 @@ int main(void) {
 	}
 	for (int i = 0; i < 10; i++) {
 		cin >> a >> b;
-		reverse(arr + a - 1, arr + b); //sort 함수를 사용하고 싶었는데 세번째 인자로 무엇을 넣어야할지 모르겠습니다.
+		reverse(arr + a - 1, arr + b); //역순으로 출력하는 것이므로 reverse
 	}
 	for (int j = 0; j < 20; j++) {
 		cout << arr[j] << ' ';
