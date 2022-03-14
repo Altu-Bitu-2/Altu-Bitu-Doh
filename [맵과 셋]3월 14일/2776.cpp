@@ -10,12 +10,12 @@ int main(void)
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 	int t;
-	cin >> tc;//테스트 케이스 개수 입력받기  
+	cin >> t;//테스트 케이스 개수 입력받기  
 
 	for (int i = 0; i < t; i++) {
 		int n;
 		cin >> n;
-        set<long long int> s;//s 선언(테스트케이스 만들 떄마다 초기화) 
+        set<long long int>s;//s 선언(테스트케이스 만들 떄마다 초기화) 
 		for (int j = 0; j < n; j++) {
 			long long int temp;
 			cin >> temp;
