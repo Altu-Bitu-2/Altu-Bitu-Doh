@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 using namespace std;
 int main() {
 	int N;
@@ -18,31 +19,33 @@ int main() {
 		int index;
 		if (min > v[i]) min = v[i];
 		if (max < v[i]) max = v[i];
-		if (v[i] == 0) index = v[i];//최빈값 구하기 위해 index 값 지정
-		else if (v[i] < 0) index = -v[i];
-		else if (v[i] > 0) index = v[i] + 4000;
+		if (v[i] == 0) {
+			index = v[i];//최빈값 구하기 위해 index 값 지정
+		}
+		else if (v[i] < 0) {
+			index = -v[i];
+		}
+		else if (v[i] > 0) {
+			index = v[i] + 4000;
+		}
 		answer[index]++;
 	}
 	ran = max - min;
-	aver = (int)((double)(aver) / N);
+	aver = floor((aver / N) + 0.5); //반올림 함수 사용!
 	sort(v.begin(), v.end());
-	if (N % 2 == 0) {
-		mid = int(v[N / 2] + v[(N / 2) + 1]);
-	}
-	else {
-		mid = v[(int)(N / 2)];
-	}
-	int max_index = 0;
+	mid = v[(int)(N / 2)];
+	int max_index = 0; //최빈값을 구하기 위해 가장 큰 index값 
 	bool flag = true;
 	int cnt = 0;
 	for (int i = 0; i < 8001; i++) {
-		if (max_index < answer[i]) {
-			if (flag && answer[i] == 1) {
-				cnt++;
-				if (cnt == 2) {
+		if (max_index <= answer[i]) {
+			//최빈값이 두개일 경우
+			if (flag && answer[i] == max_index) {
+				if (cnt == 3) {//두번째로 작은 최빈값
 					flag = false;
-					continue;
+					break;
 				}
+				cnt++;
 			}
 			if (i > 0 && i < 4001) {
 				mode = -i;
@@ -53,6 +56,7 @@ int main() {
 			else if (i == 0) {
 				mode = i;
 			}
+			max_index = answer[i];
 		}
 	}
 	cout << aver << "\n" << mid << "\n" << mode << "\n" << ran;
