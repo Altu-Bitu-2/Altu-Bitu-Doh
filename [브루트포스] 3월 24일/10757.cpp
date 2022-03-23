@@ -57,7 +57,7 @@ int main() {
 			if (i > a_size) {
 				if (i >= 1) {
 					if ((int)(b[i]) + r[i - 1] >= 10) {
-						r[i] = ((int)( b[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
+						r[i] = ((int)(b[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
 						result[i] = ((int)(b[i]) + r[i - 1]) % 10;
 					}
 					else {
@@ -66,11 +66,11 @@ int main() {
 				}
 				else {
 					if ((int)(b[i]) >= 10) {
-						r[i] = ((int)( b[i])) / 10; // 올라가게 되는 수 정하기
+						r[i] = ((int)(b[i])) / 10; // 올라가게 되는 수 정하기
 						result[i] = ((int)(b[i])) % 10;
 					}
 					else {
-						result[i] = ((int)( b[i]));
+						result[i] = ((int)(b[i]));
 					}
 				}
 			}
