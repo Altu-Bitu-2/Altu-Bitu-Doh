@@ -1,100 +1,70 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
-//더하는 수가 크기 때문에 정수로 입력받으면 안된다. 문자열로 입력받아야한다.
+//숫자가 너무 커서 정수형으로 표현하면 오버플로우가 일어날 수 있음. 그래서 문자열로 받아서 자리수 각각마다 더해주기 
+//자리가 올라갈 수 있음 ex)13자리 => 14자리 reverse함수 사용해서 받은 값을 거꾸로 저장하기...
 int main() {
 	string a, b;
-	string result = 0;
 	cin >> a >> b;
-	int a_size = a.length();
-	int b_size = b.length();
-	int r[10000] = { 0, }; //string에서 각각 자리수 더해지다가 올라가게 되는 수 저장하기
+	int a_size = a.length(), b_size = b.length();
+	reverse(a.begin(), a.end());
+	reverse(b.begin(), b.end());
+	int round;
+	int result[10000];
 	if (a_size > b_size) {
-		for (int i = 0; i < a_size; i++) {
-			if (i > b_size) { //두 숫자의 길이가 다를 경우
-				if (i >= 1) {
-					if ((int)(a[i]) + r[i - 1] >= 10) {
-						r[i] = ((int)(a[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i]) + r[i - 1]) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i]) + r[i - 1]);
-					}
-				}
-				else {
-					if ((int)(a[i] + b[i]) >= 10) {
-						r[i] = ((int)(a[i] + b[i])) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i] + b[i])) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i] + b[i]));
-					}
-				}
+		result[0] = ((int)a[0] + (int)b[0]) % 10;
+		round = ((int)a[0] + (int)b[0]) / 10;
+		for (int i = 1; i < a_size; i++) {
+			if (i <= b_size) {
+				result[i] = ((int)a[i] + (int)b[i] + round) % 10;
+				round = ((int)a[i] + (int)b[i] + round) / 10;
 			}
 			else {
-				if (i >= 1) {
-					if ((int)(a[i] + b[i]) + r[i - 1] >= 10) {
-						r[i] = ((int)(a[i] + b[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i] + b[i]) + r[i - 1]) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i] + b[i]) + r[i - 1]);
-					}
-				}
-				else {
-					if ((int)(a[i] + b[i]) >= 10) {
-						r[i] = ((int)(a[i] + b[i])) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i] + b[i])) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i] + b[i]));
-					}
-				}
+				result[i] = ((int)a[i] + round) % 10;
+				round = ((int)a[i] + round) / 10;
 			}
 		}
+		if (result[a_size] > 0) {
+			reverse(result, result + a_size);
+			for (int i = 0; i < (a_size + 1); i++) {
+				cout << result[i];
+			}
+		}
+		else {
+			reverse(result, result + a_size - 1);
+			for (int i = 0; i < (a_size); i++) {
+				cout << result[i];
+			}
+		}
+
 	}
 	else {
-		for (int i = 0; i < b_size; i++) {
-			if (i > a_size) {
-				if (i >= 1) {
-					if ((int)(b[i]) + r[i - 1] >= 10) {
-						r[i] = ((int)(b[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(b[i]) + r[i - 1]) % 10;
-					}
-					else {
-						result[i] = ((int)(b[i]) + r[i - 1]);
-					}
-				}
-				else {
-					if ((int)(b[i]) >= 10) {
-						r[i] = ((int)(b[i])) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(b[i])) % 10;
-					}
-					else {
-						result[i] = ((int)(b[i]));
-					}
-				}
+		result[0] = ((int)a[0] + (int)b[0]) % 10;
+		round = ((int)a[0] + (int)b[0]) / 10;
+		for (int i = 1; i < b_size; i++) {
+			if (i <= a_size) {
+				result[i] = ((int)a[i] + (int)b[i] + round) % 10;
+				round = ((int)a[i] + (int)b[i] + round) / 10;
 			}
 			else {
-				if (i >= 1) {
-					if ((int)(a[i] + b[i]) + r[i - 1] >= 10) {
-						r[i] = ((int)(a[i] + b[i]) + r[i - 1]) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i] + b[i]) + r[i - 1]) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i] + b[i]) + r[i - 1]);
-					}
-				}
-				else {
-					if ((int)(a[i] + b[i]) >= 10) {
-						r[i] = ((int)(a[i] + b[i])) / 10; // 올라가게 되는 수 정하기
-						result[i] = ((int)(a[i] + b[i])) % 10;
-					}
-					else {
-						result[i] = ((int)(a[i] + b[i]));
-					}
-				}
+				result[i] = ((int)b[i] + round) % 10;
+				round = ((int)b[i] + round) / 10;
+			};
+		}
+		if (result[b_size] > 0) {
+			reverse(result, result + b_size);
+			for (int i = 0; i < (b_size + 1); i++) {
+				cout << result[i];
+			}
+		}
+		else {
+			reverse(result, result + b_size - 1);
+			for (int i = 0; i < (b_size); i++) {
+				cout << result[i];
 			}
 		}
 	}
-	cout << result;
+
+	//result의 크기가 10000이기 때문에.. 그대로 출력하면 안됨...
+
 }
