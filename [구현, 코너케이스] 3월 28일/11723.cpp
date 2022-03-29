@@ -1,53 +1,51 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-int NUM[20] = { 0, }; //20까지의 숫자 셀 배열 빌요
-int check[300] = { 0, }; //check나왔을때 출력할 문자 저장
-bool flag[300] = { false , };//check가 실행되었으면 true로 변경
+int NUM[20] = { 0, }; //20까지의 숫자 셀 배열 필요
 int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); //출력 시간초과 때문에 
 	int N;
 	cin >> N;
+	string a;
+	int n;
 	for (int i = 0; i < N; i++) {
-		char a[10];
-		int n;
-		cin >> a >> n;
-		if (!strcmp(a, "add")) {
-			NUM[n - 1] ++;
+		cin >> a;
+		if (a == "add") {
+			cin >> n;
+			NUM[n - 1] = 1; //존재 유무 따지지 않고 1로 초기화
 		}
-		else if (!strcmp(a, "remove")) {
-			NUM[n - 1] = 0;
+		else if (a == "remove") {
+			cin >> n;
+			NUM[n - 1] = 0; //0으로 초기화
 		}
-		else if (!strcmp(a, "check")) {
-			if (NUM[n - 1] != 0) {
-				check[i] = 1;
+		else if (a == "check") {
+			cin >> n;
+			if (NUM[n - 1] == 1) {
+				cout << 1 << '\n';
 			}
 			else {
-				check[i] = 0;
+				cout << 0 << '\n';
 			}
-			flag[i] = true;
 		}
-		else if (!strcmp(a, "toggle")) {
-			if (NUM[n - 1] != 0) {
+		else if (a == "toggle") {
+			cin >> n;
+			if (NUM[n - 1] == 1) {
 				NUM[n - 1] = 0;
 			}
 			else {
-				NUM[n - 1] ++;
+				NUM[n - 1] = 1;
 			}
 		}
-		else if (!strcmp(a, "all")) {
+		else if (a == "all") {
 			for (int j = 0; j < 20; j++) {
 				NUM[j] = 1;
 			}
 		}
-		else if (!strcmp(a, "empty")) {
+		else if (a == "empty") {
 			for (int j = 0; j < 20; j++) {
 				NUM[j] = 0;
 			}
-		}
-	}
-	for (int i = 0; i < N; i++) {
-		if (flag[i] == true) {
-			cout << check[i] << '\n';
 		}
 	}
 }
